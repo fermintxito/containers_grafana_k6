@@ -1,6 +1,9 @@
 # docker-k6-grafana-influxdb
 Demonstrates how to run load tests with containerised instances of K6, Grafana and InfluxDB.
 
+docker-compose up -d influxdb grafana
+docker-compose run --rm k6 run /scripts/ewoks.js
+
 #### Article
 This is the accompanying source code for the following article. Please read for a detailed breakdown of the code and how K6, Grafana and InfluxDB work together using Docker Compose:
 
