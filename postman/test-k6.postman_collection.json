@@ -85,9 +85,13 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:8080/api/public/security/token/create",
+					"raw": "http://192.168.1.179:8080/api/public/security/token/create",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"192",
+						"168",
+						"1",
+						"179"
 					],
 					"port": "8080",
 					"path": [
@@ -154,9 +158,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/public/health/test/createAndIdentifyCloseRevome",
+					"raw": "http://192.168.1.179:8080/api/public/health/test/createAndIdentifyCloseRevome",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"192",
+						"168",
+						"1",
+						"179"
 					],
 					"port": "8080",
 					"path": [

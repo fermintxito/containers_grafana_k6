@@ -24,7 +24,7 @@ postman[Symbol.for("initial")]({
 export default function() {
   postman[Request]({
     name: "security/token/create",
-    id: "2ae91c1c-12fe-4bd5-90f5-253b4eb3fab1",
+    id: "d56316a7-f88a-4850-9852-29bfbcdfdf2e",
     method: "POST",
     address: "http://192.168.1.179:8080/api/public/security/token/create",
     headers: {
@@ -52,7 +52,7 @@ export default function() {
 
   const response = postman[Request]({
     name: "Validate document (front & back)",
-    id: "fed792bc-4e0c-4a9f-84e5-59d5f794ab0e",
+    id: "7e8e90a0-efd2-4bc0-ab35-e9e451e6313a",
     method: "POST",
     address:
       "http://192.168.1.179:8080/api/public/health/test/createAndIdentifyCloseRevome",
@@ -62,9 +62,9 @@ export default function() {
       pm.test("Store operation_id test", function() {
         // Assign Autorization header value to Token variable
         var jsonResponseBody = JSON.parse(responseBody);
-        var operation_id = jsonResponseBody.data.operationId;
+        // var operation_id = jsonResponseBody.data.operationId;
         //console.log(jsonData);
-        pm.environment.set("operation_id", operation_id);
+        // pm.environment.set("operation_id", operation_id);
         pm.cookies.clear;
         pm.response.to.have.status(200);
       });
