@@ -62,9 +62,8 @@ export default function() {
       pm.test("Store operation_id test", function() {
         // Assign Autorization header value to Token variable
         var jsonResponseBody = JSON.parse(responseBody);
-        // var operation_id = jsonResponseBody.data.operationId;
-        //console.log(jsonData);
-        // pm.environment.set("operation_id", operation_id);
+        var title = jsonResponseBody.title;
+        pm.environment.set("title", title);
         pm.cookies.clear;
         pm.response.to.have.status(200);
       });
