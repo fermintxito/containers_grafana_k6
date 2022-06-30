@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9c398cc7-9f74-4700-b72d-f001c00ca87c",
+		"_postman_id": "f42ff66a-5a80-40f8-b79a-fdf190b7db71",
 		"name": "test-k6",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "10938126"
@@ -47,12 +47,12 @@
 				"header": [
 					{
 						"key": "username",
-						"value": "userk6@test.com",
+						"value": "cliente_01@foxid.com",
 						"type": "text"
 					},
 					{
 						"key": "userSecret",
-						"value": "userk6@test.com",
+						"value": "cliente_01@foxid.com",
 						"type": "text"
 					},
 					{
@@ -106,7 +106,7 @@
 			"response": []
 		},
 		{
-			"name": "Validate document (front & back)",
+			"name": "/createAndIdentify",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -121,10 +121,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Store operation_id test\", function (){\r",
+							"pm.test(\"Store createAndIdentify test\", function (){\r",
 							"    // Assign Autorization header value to Token variable\r",
 							"    var jsonResponseBody = JSON.parse(responseBody);\r",
-							"    var operation_id = jsonResponseBody.data.operationId;\r",
+							"    operation_id = jsonResponseBody.data.operationId;\r",
 							"    //console.log(jsonData);\r",
 							"    pm.environment.set(\"operation_id\", operation_id);\r",
 							"    pm.cookies.clear\r",
@@ -158,7 +158,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://192.168.1.179:8080/api/public/health/test/createAndIdentifyCloseRevome",
+					"raw": "http://192.168.1.179:8080/api/public/mobile/createAndIdentify",
 					"protocol": "http",
 					"host": [
 						"192",
@@ -170,9 +170,77 @@
 					"path": [
 						"api",
 						"public",
-						"health",
-						"test",
-						"createAndIdentifyCloseRevome"
+						"mobile",
+						"createAndIdentify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/operations/close/{operationId}",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Store operation close test\", function (){\r",
+							"    pm.cookies.clear\r",
+							"    pm.response.to.have.status(200)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.179:8080/api/public/mobile/operations/close/{{operation_id}}",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"179"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"public",
+						"mobile",
+						"operations",
+						"close",
+						"{{operation_id}}"
 					]
 				}
 			},
