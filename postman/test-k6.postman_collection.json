@@ -7,105 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "security/token/create",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Store access_token test\", function (){\r",
-							"    // Assign Autorization header value to Token variable\r",
-							"    var jsonResponseBody = JSON.parse(responseBody);\r",
-							"    var jsonData = jsonResponseBody.token;\r",
-							"    //console.log(jsonData);\r",
-							"    pm.environment.set(\"access_token\", jsonData);\r",
-							"    pm.cookies.clear\r",
-							"    pm.response.to.have.status(200)\r",
-							"})\r",
-							"\r",
-							"//Replace X-XSFR-TOKEN with your cookie name\r",
-							"//var xsrfCookie = postman.getResponseCookie(\"XSRF-TOKEN\");\r",
-							"//postman.setEnvironmentVariable(\"x-xsrf-token\", xsrfCookie.value);\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "username",
-						"value": "cliente_01@foxid.com",
-						"type": "text"
-					},
-					{
-						"key": "userSecret",
-						"value": "cliente_01@foxid.com",
-						"type": "text"
-					},
-					{
-						"key": "clientId",
-						"value": "web_app",
-						"type": "text"
-					},
-					{
-						"key": "clientSecret",
-						"value": "bf66f6a9-8da0-4217-9767-4bb5e80d8c5f",
-						"type": "text"
-					},
-					{
-						"key": "clientId",
-						"value": "mobile_app",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "clientSecret",
-						"value": "687d40d7-464d-477c-a532-a12fcd8bb782",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "moreInfo",
-						"value": "true",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "http://192.168.1.179:8080/api/public/security/token/create",
-					"protocol": "http",
-					"host": [
-						"192",
-						"168",
-						"1",
-						"179"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"public",
-						"security",
-						"token",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "/createAndIdentify",
 			"event": [
 				{
@@ -122,13 +23,6 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Store createAndIdentify test\", function (){\r",
-							"    // Assign Autorization header value to Token variable\r",
-							"    var jsonResponseBody = JSON.parse(responseBody);\r",
-							"    operation_id = jsonResponseBody.data.operationId;\r",
-							"    //console.log(jsonData);\r",
-							"    pm.environment.set(\"operation_id\", operation_id);\r",
-							"    pm.cookies.clear\r",
-							"    pm.response.to.have.status(200)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -194,8 +88,6 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Store operation close test\", function (){\r",
-							"    pm.cookies.clear\r",
-							"    pm.response.to.have.status(200)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -245,6 +137,56 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Content-Type",
+			"value": "application/json",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "cliente_01@foxid.com",
+			"type": "string"
+		},
+		{
+			"key": "userSecret",
+			"value": "cliente_01@foxid.com",
+			"type": "string"
+		},
+		{
+			"key": "clientId",
+			"value": "web_app",
+			"type": "string"
+		},
+		{
+			"key": "clientSecret",
+			"value": "bf66f6a9-8da0-4217-9767-4bb5e80d8c5f",
+			"type": "string"
 		}
 	]
 }

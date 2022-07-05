@@ -11,6 +11,11 @@ The env.json includes all your environment variables that are exported from Post
 postman-to-k6 test-api.json -e env.json -o k6-script.js
 postman-to-k6 test-api.json -o k6-script.js
 
+# Exportar los datos del resumen
+Si no está interesado en cada una de las mediciones de las métricas individuales y, en cambio, desea ver sólo los datos agregados, exportar los datos del resumen de fin de la prueba a un archivo JSON puede ser una mejor opción que utilizar la salida JSON descrita en este documento.
+
+k6 run --summary-export=export.json /scripts/k6-script.js
+
 #### Article
 This is the accompanying source code for the following article. Please read for a detailed breakdown of the code and how K6, Grafana and InfluxDB work together using Docker Compose:
 
