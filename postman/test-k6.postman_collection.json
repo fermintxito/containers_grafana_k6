@@ -1,108 +1,13 @@
 {
 	"info": {
-		"_postman_id": "9c398cc7-9f74-4700-b72d-f001c00ca87c",
+		"_postman_id": "f42ff66a-5a80-40f8-b79a-fdf190b7db71",
 		"name": "test-k6",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "10938126"
 	},
 	"item": [
 		{
-			"name": "security/token/create",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Store access_token test\", function (){\r",
-							"    // Assign Autorization header value to Token variable\r",
-							"    var jsonResponseBody = JSON.parse(responseBody);\r",
-							"    var jsonData = jsonResponseBody.token;\r",
-							"    //console.log(jsonData);\r",
-							"    pm.environment.set(\"access_token\", jsonData);\r",
-							"    pm.cookies.clear\r",
-							"    pm.response.to.have.status(200)\r",
-							"})\r",
-							"\r",
-							"//Replace X-XSFR-TOKEN with your cookie name\r",
-							"//var xsrfCookie = postman.getResponseCookie(\"XSRF-TOKEN\");\r",
-							"//postman.setEnvironmentVariable(\"x-xsrf-token\", xsrfCookie.value);\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "username",
-						"value": "userk6@test.com",
-						"type": "text"
-					},
-					{
-						"key": "userSecret",
-						"value": "userk6@test.com",
-						"type": "text"
-					},
-					{
-						"key": "clientId",
-						"value": "web_app",
-						"type": "text"
-					},
-					{
-						"key": "clientSecret",
-						"value": "bf66f6a9-8da0-4217-9767-4bb5e80d8c5f",
-						"type": "text"
-					},
-					{
-						"key": "clientId",
-						"value": "mobile_app",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "clientSecret",
-						"value": "687d40d7-464d-477c-a532-a12fcd8bb782",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "moreInfo",
-						"value": "true",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "localhost:8080/api/public/security/token/create",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"public",
-						"security",
-						"token",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Validate document (front & back)",
+			"name": "/createAndIdentify",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -120,8 +25,7 @@
 							"pm.test(\"Store operation_id test\", function (){\r",
 							"    // Assign Autorization header value to Token variable\r",
 							"    var jsonResponseBody = JSON.parse(responseBody);\r",
-							"    var operation_id = jsonResponseBody.data.operationId;\r",
-							"    //console.log(jsonData);\r",
+							"    operation_id = jsonResponseBody.data.operationId;\r",
 							"    pm.environment.set(\"operation_id\", operation_id);\r",
 							"    pm.cookies.clear\r",
 							"    pm.response.to.have.status(200)\r",
@@ -154,21 +58,169 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/public/health/test/createAndIdentifyCloseRevome",
+					"raw": "http://192.168.1.179:8080/api/public/mobile/createAndIdentify",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"192",
+						"168",
+						"1",
+						"179"
 					],
 					"port": "8080",
 					"path": [
 						"api",
 						"public",
-						"health",
-						"test",
-						"createAndIdentifyCloseRevome"
+						"mobile",
+						"createAndIdentify"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/operations/close/{operation_id}",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Store operation close test\", function (){\r",
+							"    // Assign Autorization header value to Token variable\r",
+							"        var jsonResponseBody = JSON.parse(responseBody);\r",
+							"        pm.environment.set(\"result\", jsonResponseBody);\r",
+							"        pm.cookies.clear;\r",
+							"        pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://192.168.1.179:8080/api/public/mobile/operations/close/{{operation_id}}",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"179"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"public",
+						"mobile",
+						"operations",
+						"close",
+						"{{operation_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var request = {",
+					"    url: \"http://192.168.1.179:8080/api/public/security/token/create\",",
+					"    method: \"POST\",",
+					"    header: {",
+					"      \"Content-Type\": \"application/json\",",
+					"      username: \"cliente_01@foxid.com\",",
+					"      userSecret: \"cliente_01@foxid.com\",",
+					"      clientId: \"web_app\",",
+					"      clientSecret: \"bf66f6a9-8da0-4217-9767-4bb5e80d8c5f\"",
+					"    }",
+					"};",
+					"pm.sendRequest(request, function(err, response){",
+					"  console.log(response);",
+					"});",
+					"    ",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Content-Type",
+			"value": "application/json",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "cliente_01@foxid.com",
+			"type": "string"
+		},
+		{
+			"key": "userSecret",
+			"value": "cliente_01@foxid.com",
+			"type": "string"
+		},
+		{
+			"key": "clientId",
+			"value": "web_app",
+			"type": "string"
+		},
+		{
+			"key": "clientSecret",
+			"value": "bf66f6a9-8da0-4217-9767-4bb5e80d8c5f",
+			"type": "string"
 		}
 	]
 }
