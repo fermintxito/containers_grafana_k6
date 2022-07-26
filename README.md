@@ -4,6 +4,9 @@ Demonstrates how to run load tests with containerised instances of K6, Grafana a
 docker-compose up -d influxdb grafana
 docker-compose run --rm k6 run /scripts/ewoks.js
 
+Debug mode
+docker-compose run --rm k6 run /scripts/ewoks.js --http-debug=full
+
 # Convert your exported Postman collection to k6 script
 Assuming your exported collection is named test-api.json, you can run this command to convert it to a k6 script. 
 The env.json includes all your environment variables that are exported from Postman.

@@ -22,7 +22,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Store createAndIdentify test\", function (){\r",
+							"pm.test(\"Store operation_id test\", function (){\r",
+							"    // Assign Autorization header value to Token variable\r",
+							"    var jsonResponseBody = JSON.parse(responseBody);\r",
+							"    operation_id = jsonResponseBody.data.operationId;\r",
+							"    pm.environment.set(\"operation_id\", operation_id);\r",
+							"    pm.cookies.clear\r",
+							"    pm.response.to.have.status(200)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -72,7 +78,7 @@
 			"response": []
 		},
 		{
-			"name": "/operations/close/{operationId}",
+			"name": "/operations/close/{operation_id}",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -88,6 +94,11 @@
 					"script": {
 						"exec": [
 							"pm.test(\"Store operation close test\", function (){\r",
+							"    // Assign Autorization header value to Token variable\r",
+							"        var jsonResponseBody = JSON.parse(responseBody);\r",
+							"        pm.environment.set(\"result\", jsonResponseBody);\r",
+							"        pm.cookies.clear;\r",
+							"        pm.response.to.have.status(200);\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -140,7 +151,14 @@
 		}
 	],
 	"auth": {
-		"type": "bearer"
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
 	},
 	"event": [
 		{
@@ -148,6 +166,22 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"var request = {",
+					"    url: \"http://192.168.1.179:8080/api/public/security/token/create\",",
+					"    method: \"POST\",",
+					"    header: {",
+					"      \"Content-Type\": \"application/json\",",
+					"      username: \"cliente_01@foxid.com\",",
+					"      userSecret: \"cliente_01@foxid.com\",",
+					"      clientId: \"web_app\",",
+					"      clientSecret: \"bf66f6a9-8da0-4217-9767-4bb5e80d8c5f\"",
+					"    }",
+					"};",
+					"pm.sendRequest(request, function(err, response){",
+					"  console.log(response);",
+					"});",
+					"    ",
+					"",
 					""
 				]
 			}
