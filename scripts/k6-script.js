@@ -10,13 +10,13 @@ export let errorRate = new Rate("errors");
 export let options = {
   stages: [
       // Ramp-up from 1 to 50 virtual users (VUs) in 5s
-      { duration: "20m", target: 25 },
+      { duration: "20m", target: 50 },
 
       // Stay at rest on 50 VUs for 10s
-      { duration: "40m", target: 50 },
+      { duration: "40m", target: 100 },
 
       // Ramp-down from 50 to 0 VUs for 5s
-      { duration: "20m", target: 25 },
+      { duration: "20m", target: 50 },
 
       // Ramp-down from 50 to 0 VUs for 5s
       { duration: "15s", target: 0 }
